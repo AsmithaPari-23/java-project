@@ -1,0 +1,9 @@
+The Currency Converter Website is a simple yet powerful web project designed to help users convert one currency into another using real-time exchange rates. This project is especially useful for students, travelers, business people, and anyone who deals with multiple currencies. It demonstrates how HTML, CSS, and JavaScript can work together to create a functional and interactive web application.
+
+The website has a clean and user-friendly interface. At the center of the page, users can input the amount they want to convert. To ensure proper input, the field accepts only values greater than or equal to one. Next, users can choose the source currency (the currency they currently have) and the target currency (the currency they want to convert into) from two dropdown menus. These dropdown lists are automatically filled with a wide range of global currencies using live data.
+
+When the user clicks the Convert button, the website fetches up-to-date exchange rates from the free Frankfurter API, a reliable source of currency data. The conversion result is then displayed instantly, showing the equivalent amount in the selected target currency. If the user mistakenly selects the same currency in both fields, the system gently alerts them to choose different options.
+
+From a technical perspective, the project combines three core web technologies. HTML is used to structure the input fields, dropdown menus, and result area. CSS styles the converter box with rounded corners, spacing, and hover effects to make it visually appealing. JavaScript brings the project to life by handling user input, calling the external API, and updating the result dynamically without reloading the page.
+
+Overall, this project is an excellent introduction to real-world web development. It not only improves coding skills but also shows how to integrate external APIs into websites, making them more interactive and practical.
