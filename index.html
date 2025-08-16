@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Currency Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .converter {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin: 0.5rem 0 0.25rem;
+    }
+    select, input, button {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .result {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="converter">
+    <h2>Currency Converter</h2>
+    
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" placeholder="Enter amount" min="1" />
+
+    <label for="from">From:</label>
+    <select id="from"></select>
+
+    <label for="to">To:</label>
+    <select id="to"></select>
+
+    <button onclick="convert()">Convert</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const from = document.getElementById('from');
+    const to = document.getElementById('to');
+    const result = document.getElementById('result');
+
+    // Fetch currency list
+    fetch('https://api.frankfurter.app/currencies')
+      .then(resp => resp.json())
+      .then(data => {
+        let options = Object.keys(data)
+          .map(c => `<option value="${c}">${c}</option>`)
+          .join('');
+        from.innerHTML = options;
+        to.innerHTML = options;
+        from.value = "USD";
+        to.value = "INR";
+      });
+
+    function convert() {
+      let amount = document.getElementById('amount').value;
+      let fromCurrency = from.value;
+      let toCurrency = to.value;
+
+      if (fromCurrency === toCurrency) {
+        result.innerText = "Please choose different currencies.";
+        return;
+      }
+
+      fetch(`https://api.frankfurter.app/latest?amount=${amount}&from=${fromCurrency}&to=${toCurrency}`)
+        .then(resp => resp.json())
+        .then(data => {
+          result.innerText = `${amount} ${fromCurrency} = ${data.rates[toCurrency]} ${toCurrency}`;
+        });
+    }
+  </script>
+</body>
+</html>
